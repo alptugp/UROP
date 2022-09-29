@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Router {
-  private final List<RouterInterface> interfaces;
-  private final List<Rule> packetFilter;
+  private List<RouterInterface> interfaces;
+  private List<Rule<Host>> packetFilter;
   private final Integer id;
 
   public Router(Integer id) {
@@ -12,7 +12,7 @@ public class Router {
     this.id = id;
   }
 
-  public Router(Integer id, List<RouterInterface> interfaces, List<Rule> packetFilter) {
+  public Router(Integer id, List<RouterInterface> interfaces, List<Rule<Host>> packetFilter) {
     this.interfaces = interfaces;
     this.packetFilter = packetFilter;
     this.id = id;
@@ -27,14 +27,22 @@ public class Router {
   }
 
   public void addRule(Host source, Host destination) {
-    packetFilter.add(new Rule(source, destination));
+    packetFilter.add(new Rule<>(source, destination));
   }
 
   public void removeRule(Host source, Host destination) {
-    packetFilter.remove(new Rule(source, destination));
+    packetFilter.remove(new Rule<>(source, destination));
   }
 
-  public List<Rule> getPacketFilter() {
+  public void setInterfaces(List<RouterInterface> interfaces) {
+    this.interfaces = interfaces;
+  }
+
+  public void setPacketFilter(List<Rule<Host>> packetFilter) {
+    this.packetFilter = packetFilter;
+  }
+
+  public List<Rule<Host>> getPacketFilter() {
     return packetFilter;
   }
 
