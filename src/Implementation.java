@@ -53,7 +53,10 @@ public class Implementation {
     Router R3 = new Router(3);
     RouterInterface R3I1 = new RouterInterface(R3, 1, new ArrayList<>(List.of(hostU, hostV, hostN)));
     RouterInterface R3I2 = new RouterInterface(R3, 2, new ArrayList<>(List.of(hostH, hostW, hostJ)));
-    R3.setInterfaces(new ArrayList<>(List.of(R3I1, R3I2)));
+    // RECURSIVE CONNECTION (Host M is being connected to R3I3, although it is already in R2I2)
+    RouterInterface R3I3 = new RouterInterface(R3, 3, new ArrayList<>(List.of(hostM)));
+    //
+    R3.setInterfaces(new ArrayList<>(List.of(R3I1, R3I2, R3I3)));
     List<Rule<Host>> packetFilterR3 = new ArrayList<>(List.of());
     R3.setPacketFilter(packetFilterR3);
     interfacePacketFilters.add(new Rule<>(R3I1, R3I2));
@@ -63,6 +66,8 @@ public class Implementation {
     // CONNECTING THE TWO NETWORK TOPOLOGIES AND THEIR TREE STRUCTURES
     R3.addInterface(R1I3xR2I1);
     connect(root1, root2, R1I3xR2I1);
+
+
 
     /*
        List<Router> list = interfacesToRouters.getOrDefault(R1I3xR2I1, new ArrayList<>());
