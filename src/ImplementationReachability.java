@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Implementation {
+public class ImplementationReachability {
   static Map<RouterInterface, List<Router>> interfacesToRouters = new HashMap<>();
   static List<Rule<RouterInterface>> interfacePacketFilters = new ArrayList<>();
 
